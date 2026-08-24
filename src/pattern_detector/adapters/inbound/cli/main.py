@@ -1,0 +1,94 @@
+"""DPX-TypeScript CLI — Hexagonal Architecture Scanner for TypeScript & JavaScript."""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from typing import Optional
+
+import typer
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich import box
+
+from pattern_detector.adapters.outbound.persistence.html_report_formatter import HtmlReportFormatter
+from pattern_detector.application.detection_service import DetectionService
+from pattern_detector.domain.detection import DetectionReport
+
+app = typer.Typer(
+    name="dpx-typescript",
+    help="🔷 DPX-TypeScript — Architecture Pattern & Code Quality Scanner for TypeScript / JavaScript",
+    add_completion=False,
+    rich_markup_mode="rich",
+)
+
+console = Console()
+
+
+def _print_detection_summary(report: DetectionReport, verbose: bool = False) -> None:
+    project = Path(report.project_path).name
+
+    console.print(Panel.fit(
+        f"[bold cyan]DPX-TypeScript Architecture & Pattern Engine[/bold cyan]\n"
+        f"[dim]Target:[/dim] [yellow]{project}[/yellow]",
+        border_style="cyan",
+    ))
+
+    console.print(
+        f" [dim]Scan Summary:[/dim] [bold]{report.scanned_files_count}[/bold] files in "
+        f"[bold green]{report.elapsed_seconds:.4f}s[/bold green]  "
+    )
+
+    summary = report.summary_by_category
+    if not summary:
+        console.print("[yellow]No patterns detected.[/yellow]")
+        return
+
+    t = Table(box=box.ROUNDED, show_header=True, header_style="bold cyan")
+    t.add_column("Category", style="dim", width=28)
+    t.add_column("Detections", justify="right")
+    for cat, cnt in sorted(summary.items(), key=lambda x: -x[1]):
+        t.add_row(cat, str(cnt))
+    console.print(t)
+
+    for i, d in enumerate(report.detections[:40 if not verbose else 200], 1):
+        loc_str = f"\n/Volumes/External/Code/DPX-TypeScript/{d.primary_location}" if d.primary_location else ""
+        console.print(
+            f"\n[bold]#{i} {d.pattern_type.value}[/bold] on [cyan]{d.target_kind}[/cyan] "
+            f"[yellow]{d.target_name}[/yellow]"
+        )
+        console.print(f"├── 📍 Location: {loc_str}")
+        console.print(f"├── 🎯 Confidence: [bold]{d.confidence.percentage_str}[/bold] [{d.level.value}]")
+        console.print(f"├── 📝 Summary: {d.summary}")
+        console.print(f"└── 🔎 Evidence Trail ({len(d.evidences)} heuristics):")
+        for ev in d.evidences:
+            console.print(f"    └── +{int(ev.weight * 100)}% ({ev.rule_code}) {ev.description}")
+
+
+@app.callback(invoke_without_command=True)
+def scan(
+    target: str = typer.Argument(..., help="Path to TypeScript/JS project directory or single file"),
+    html: Optional[Path] = typer.Option(None, "-H", "--html", help="Output HTML Architecture HUD report path"),
+    exclude: Optional[list[str]] = typer.Option(None, "-e", "--exclude", help="Directories to exclude (repeatable)"),
+    verbose: bool = typer.Option(False, "-v", "--verbose", help="Show all detections"),
+) -> None:
+    """Scan TypeScript / JavaScript project for architectural patterns, type safety hazards, and code smells."""
+    service = DetectionService()
+    report = service.scan(target, excludes=list(exclude) if exclude else None, verbose=verbose)
+    _print_detection_summary(report, verbose=verbose)
+
+    if html:
+        formatter = HtmlReportFormatter()
+        html_content = formatter.format(report)
+        html.parent.mkdir(parents=True, exist_ok=True)
+        html.write_text(html_content, encoding="utf-8")
+        console.print(f"\n[bold green]✓[/bold green] Architecture HUD saved → [cyan]{html}[/cyan]")
+
+
+def main() -> None:
+    app()
+
+
+if __name__ == "__main__":
+    main()
