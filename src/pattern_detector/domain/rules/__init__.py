@@ -1,4 +1,4 @@
-"""Rule catalog registration for TypeScript Pattern Detector."""
+"""Rule catalog registration for TypeScript Pattern Detector — 40 rules (30 original + 10 GoF)."""
 
 from __future__ import annotations
 
@@ -27,6 +27,18 @@ from pattern_detector.domain.rules.enterprise_rules import (
     RailwayResultMonadRule,
     RepositoryPatternRule,
     SmartConstructorRule,
+)
+from pattern_detector.domain.rules.gof_missing_rules import (
+    AbstractFactoryRule,
+    BridgePatternRule,
+    CompositePatternRule,
+    FlyweightPatternRule,
+    InterpreterPatternRule,
+    MediatorPatternRule,
+    MementoPatternRule,
+    StatePatternRule,
+    TemplateMethodRule,
+    VisitorPatternRule,
 )
 from pattern_detector.domain.rules.quality_rules import (
     CircularModuleImportRule,
@@ -62,24 +74,34 @@ DEFAULT_RULES: list[PatternRule] = [
     BrandedTypesRule(),
     TypeGuardPredicateRule(),
 
-    # 2. Creational & Factory Patterns (4)
+    # 2. Creational & Factory Patterns (5 — all GoF)
     BuilderPatternRule(),
+    AbstractFactoryRule(),
     FactoryMethodRule(),
     SingletonPatternRule(),
     PrototypeCloneRule(),
 
-    # 3. Structural Patterns (4)
+    # 3. Structural Patterns (7 — all GoF)
     AdapterPatternRule(),
+    BridgePatternRule(),
+    CompositePatternRule(),
     DecoratorPatternRule(),
     FacadePatternRule(),
+    FlyweightPatternRule(),
     ProxyHandlerRule(),
 
-    # 4. Behavioral & Reactive Patterns (5)
+    # 4. Behavioral & Reactive Patterns (11 — all GoF + Async Iterator)
     ObserverEventEmitterRule(),
     StrategyPatternRule(),
     ChainOfResponsibilityRule(),
     CommandPatternRule(),
     AsyncIteratorGeneratorRule(),
+    TemplateMethodRule(),
+    StatePatternRule(),
+    VisitorPatternRule(),
+    MediatorPatternRule(),
+    MementoPatternRule(),
+    InterpreterPatternRule(),
 
     # 5. Architectural & Enterprise Patterns (4)
     DependencyInjectionRule(),
@@ -110,38 +132,29 @@ __all__ = [
     "BasePatternRule",
     "PatternRule",
     "DEFAULT_RULES",
-    "DiscriminatedUnionRule",
-    "ConditionalTypesRule",
-    "MappedTypesRule",
-    "BrandedTypesRule",
-    "TypeGuardPredicateRule",
-    "BuilderPatternRule",
-    "FactoryMethodRule",
-    "SingletonPatternRule",
-    "PrototypeCloneRule",
-    "AdapterPatternRule",
-    "DecoratorPatternRule",
-    "FacadePatternRule",
-    "ProxyHandlerRule",
-    "ObserverEventEmitterRule",
-    "StrategyPatternRule",
-    "ChainOfResponsibilityRule",
-    "CommandPatternRule",
-    "AsyncIteratorGeneratorRule",
-    "DependencyInjectionRule",
-    "RepositoryPatternRule",
-    "RailwayResultMonadRule",
-    "SmartConstructorRule",
-    "StructuredPromiseAllRule",
-    "UnhandledPromiseRejectionRule",
-    "AsyncRaceConditionRule",
-    "AbortControllerCancellationRule",
-    "UnsafeAnyAssertionRule",
-    "UnsafeNonNullAssertionRule",
-    "TryCatchBlanketSwallowRule",
-    "MutableGlobalStateRule",
-    "GodModuleSrpRule",
-    "CyclomaticComplexityKissRule",
-    "DuplicateCodeDryRule",
-    "CircularModuleImportRule",
+    # Type programming
+    "DiscriminatedUnionRule", "ConditionalTypesRule", "MappedTypesRule",
+    "BrandedTypesRule", "TypeGuardPredicateRule",
+    # Creational (all GoF)
+    "BuilderPatternRule", "AbstractFactoryRule", "FactoryMethodRule",
+    "SingletonPatternRule", "PrototypeCloneRule",
+    # Structural (all GoF)
+    "AdapterPatternRule", "BridgePatternRule", "CompositePatternRule",
+    "DecoratorPatternRule", "FacadePatternRule", "FlyweightPatternRule", "ProxyHandlerRule",
+    # Behavioral (all GoF + Async)
+    "ObserverEventEmitterRule", "StrategyPatternRule", "ChainOfResponsibilityRule",
+    "CommandPatternRule", "AsyncIteratorGeneratorRule", "TemplateMethodRule",
+    "StatePatternRule", "VisitorPatternRule", "MediatorPatternRule",
+    "MementoPatternRule", "InterpreterPatternRule",
+    # Enterprise
+    "DependencyInjectionRule", "RepositoryPatternRule", "RailwayResultMonadRule", "SmartConstructorRule",
+    # Async
+    "StructuredPromiseAllRule", "UnhandledPromiseRejectionRule",
+    "AsyncRaceConditionRule", "AbortControllerCancellationRule",
+    # Resilience
+    "UnsafeAnyAssertionRule", "UnsafeNonNullAssertionRule",
+    "TryCatchBlanketSwallowRule", "MutableGlobalStateRule",
+    # Quality
+    "GodModuleSrpRule", "CyclomaticComplexityKissRule",
+    "DuplicateCodeDryRule", "CircularModuleImportRule",
 ]

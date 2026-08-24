@@ -270,4 +270,80 @@ PATTERN_CATALOG: dict[PatternType, PatternCatalogEntry] = {
         description="Cyclic cross-module `import` dependencies causing `undefined` runtime references during initialization.",
         idiomatic_example="A imports B, and B imports A.",
     ),
+
+    # ── Missing GoF: Creational ───────────────────────────────────────────────
+    PatternType.ABSTRACT_FACTORY: PatternCatalogEntry(
+        pattern_type=PatternType.ABSTRACT_FACTORY,
+        category=PatternCategory.CREATIONAL,
+        name="Abstract Factory",
+        description="Providing an interface for creating families of related or dependent objects without specifying their concrete classes (`createButton()`, `createDialog()` per platform).",
+        idiomatic_example="interface UIFactory { createButton(): Button; createDialog(): Dialog; }\nclass MacUIFactory implements UIFactory { ... }",
+    ),
+
+    # ── Missing GoF: Structural ───────────────────────────────────────────────
+    PatternType.BRIDGE_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.BRIDGE_PATTERN,
+        category=PatternCategory.STRUCTURAL,
+        name="Bridge Pattern",
+        description="Decoupling an abstraction from its implementation so both can vary independently via composition over inheritance (`Abstraction` holds reference to `Implementor`).",
+        idiomatic_example="class RemoteControl { constructor(private device: Device) {} toggle() { this.device.isEnabled() ? this.device.disable() : this.device.enable(); } }",
+    ),
+    PatternType.COMPOSITE_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.COMPOSITE_PATTERN,
+        category=PatternCategory.STRUCTURAL,
+        name="Composite / Tree Structure",
+        description="Composing objects into tree structures to represent part-whole hierarchies so clients treat individual objects and compositions uniformly (`Component | Leaf | Composite`).",
+        idiomatic_example="interface FileSystemItem { size(): number; }\nclass Directory implements FileSystemItem { children: FileSystemItem[] = []; size() { return this.children.reduce((s, c) => s + c.size(), 0); } }",
+    ),
+    PatternType.FLYWEIGHT_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.FLYWEIGHT_PATTERN,
+        category=PatternCategory.STRUCTURAL,
+        name="Flyweight / Object Pool",
+        description="Sharing fine-grained objects efficiently using an intrinsic state cache/pool to reduce memory overhead for large numbers of similar objects.",
+        idiomatic_example="class GlyphFactory { private cache = new Map<string, Glyph>(); get(char: string) { if (!this.cache.has(char)) this.cache.set(char, new Glyph(char)); return this.cache.get(char)!; } }",
+    ),
+
+    # ── Missing GoF: Behavioral ───────────────────────────────────────────────
+    PatternType.TEMPLATE_METHOD: PatternCatalogEntry(
+        pattern_type=PatternType.TEMPLATE_METHOD,
+        category=PatternCategory.BEHAVIORAL,
+        name="Template Method",
+        description="Defining the skeleton of an algorithm in an abstract base class, deferring specific steps to subclasses without changing the algorithm structure.",
+        idiomatic_example="abstract class DataMiner { mine() { this.extractData(); this.parseData(); this.analyzeData(); } abstract extractData(): void; abstract parseData(): void; }",
+    ),
+    PatternType.STATE_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.STATE_PATTERN,
+        category=PatternCategory.BEHAVIORAL,
+        name="State Machine / State Pattern",
+        description="Allowing an object to alter its behaviour when its internal state changes via explicit state objects or discriminated union state transitions.",
+        idiomatic_example="type TrafficLight = 'red' | 'yellow' | 'green';\nfunction next(state: TrafficLight): TrafficLight { const transitions = { red: 'green', green: 'yellow', yellow: 'red' }; return transitions[state]; }",
+    ),
+    PatternType.VISITOR_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.VISITOR_PATTERN,
+        category=PatternCategory.BEHAVIORAL,
+        name="Visitor Pattern",
+        description="Separating an algorithm from the object structure it operates on by adding a `visit` / `accept` dispatch double-dispatch mechanism.",
+        idiomatic_example="interface ASTVisitor { visitBinaryExpr(node: BinaryExpr): void; visitLiteral(node: Literal): void; }\nclass Printer implements ASTVisitor { visitLiteral(node) { console.log(node.value); } }",
+    ),
+    PatternType.MEDIATOR_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.MEDIATOR_PATTERN,
+        category=PatternCategory.BEHAVIORAL,
+        name="Mediator / Event Bus",
+        description="Reducing coupling between components by having them communicate exclusively through a central mediator / event bus / message broker.",
+        idiomatic_example="class EventBus { private handlers = new Map<string, Function[]>(); on(event: string, fn: Function) { ... } emit(event: string, data: unknown) { ... } }",
+    ),
+    PatternType.MEMENTO_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.MEMENTO_PATTERN,
+        category=PatternCategory.BEHAVIORAL,
+        name="Memento / Snapshot / Undo",
+        description="Capturing and externalising an object's internal state as an immutable snapshot to allow restoring to a previous state without violating encapsulation.",
+        idiomatic_example="class Editor { private history: EditorState[] = []; save() { this.history.push({ ...this.state }); } restore() { this.state = this.history.pop()!; } }",
+    ),
+    PatternType.INTERPRETER_PATTERN: PatternCatalogEntry(
+        pattern_type=PatternType.INTERPRETER_PATTERN,
+        category=PatternCategory.BEHAVIORAL,
+        name="Interpreter / DSL Parser",
+        description="Defining a grammar and interpreter for a domain-specific language (DSL) using recursive expression trees (`Expression.interpret(ctx)`).",
+        idiomatic_example="interface Expression { interpret(ctx: Context): number; }\nclass Add implements Expression { constructor(private l: Expression, private r: Expression) {} interpret(ctx) { return this.l.interpret(ctx) + this.r.interpret(ctx); } }",
+    ),
 }

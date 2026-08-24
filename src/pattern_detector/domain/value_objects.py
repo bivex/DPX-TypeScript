@@ -29,24 +29,34 @@ class PatternType(str, Enum):
     BRANDED_TYPES = "branded_types"
     TYPE_GUARD_PREDICATE = "type_guard_predicate"
 
-    # 2. Creational & Factory Patterns (4)
+    # 2. Creational & Factory Patterns (5)
     BUILDER_PATTERN = "builder_pattern"
     FACTORY_METHOD = "factory_method"
+    ABSTRACT_FACTORY = "abstract_factory"
     SINGLETON_PATTERN = "singleton_pattern"
     PROTOTYPE_CLONE = "prototype_clone"
 
-    # 3. Structural Patterns (4)
+    # 3. Structural Patterns (8)
     ADAPTER_PATTERN = "adapter_pattern"
+    BRIDGE_PATTERN = "bridge_pattern"
+    COMPOSITE_PATTERN = "composite_pattern"
     DECORATOR_PATTERN = "decorator_pattern"
     FACADE_PATTERN = "facade_pattern"
+    FLYWEIGHT_PATTERN = "flyweight_pattern"
     PROXY_HANDLER = "proxy_handler"
 
-    # 4. Behavioral & Reactive Patterns (5)
+    # 4. Behavioral & Reactive Patterns (12)
     OBSERVER_EVENT_EMITTER = "observer_event_emitter"
     STRATEGY_PATTERN = "strategy_pattern"
     CHAIN_OF_RESPONSIBILITY = "chain_of_responsibility"
     COMMAND_PATTERN = "command_pattern"
     ASYNC_ITERATOR_GENERATOR = "async_iterator_generator"
+    TEMPLATE_METHOD = "template_method"
+    STATE_PATTERN = "state_pattern"
+    VISITOR_PATTERN = "visitor_pattern"
+    MEDIATOR_PATTERN = "mediator_pattern"
+    MEMENTO_PATTERN = "memento_pattern"
+    INTERPRETER_PATTERN = "interpreter_pattern"
 
     # 5. Architectural & Enterprise Patterns (4)
     DEPENDENCY_INJECTION = "dependency_injection"
