@@ -98,11 +98,14 @@ Built with **Hexagonal Architecture (Ports & Adapters)** and **Domain-Driven Des
 
 ---
 
-## ⚡ Benchmarks on Real-World TypeScript Projects
+## ⚡ Benchmarks on Real-World TypeScript Repositories
 
-| Project | Files | Findings | Scan Time |
-|---|:---:|:---:|:---:|
-| `examples/ts_samples` (BankingDomain · ApiGateway · GoFPatterns) | **3** | **89** | **< 0.1s** |
+| Open-Source Project | Files Scanned | Architectural Detections | Scan Time (s) | Type-Level | Structural / GoF | Behavioral / Middleware | Hazards / Safety |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [**honojs/hono**](https://github.com/honojs/hono) *(Web Framework)* | 310 | 360 | **0.282s** | 57 | 42 | 63 | 62 |
+| [**colinhacks/zod**](https://github.com/colinhacks/zod) *(Schema Engine)* | 321 | 464 | **0.223s** | 142 | 18 | 7 | 151 |
+| [**examples/ts_samples**](https://github.com/bivex/DPX-TypeScript/tree/main/examples) *(GoF + Enterprise)* | 3 | 89 | **0.008s** | 9 | 36 | 15 | 1 |
+| **TOTAL** | **634** | **913** | **0.513s** | **208** | **96** | **85** | **214** |
 
 ---
 

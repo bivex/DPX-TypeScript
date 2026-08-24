@@ -59,8 +59,8 @@
         <h1>λ DPX<span>-TypeScript</span></h1>
         <p>Architecture Pattern Detector & IDE Observability HUD for TypeScript, JavaScript, React, Next.js, Node.js and more.</p>
         <div class="hero-meta">
-            <span><strong>30</strong> Pattern Rules</span>
-            <span><strong>8</strong> Categories</span>
+            <span><strong>40</strong> Pattern Rules</span>
+            <span><strong>GoF 23/23</strong> Complete</span>
             <span><strong>.ts .tsx .js .jsx</strong></span>
             <span><strong>14</strong> Tests Passing</span>
         </div>
@@ -68,19 +68,39 @@
 
     <div class="section-title">📊 Architecture HUD Reports</div>
     <div class="reports-grid">
+        <a class="report-card" href="hono_hud.html">
+            <div class="card-icon" style="background:rgba(251,191,36,0.12)">🔥</div>
+            <div class="card-title">honojs/hono (Web Framework)</div>
+            <div class="card-desc">360 architectural detections across 310 files (0.28s) — Middleware Chain of Responsibility, Mapped Types, Route Inference, Decorators.</div>
+            <div class="card-meta">
+                <span class="tag" style="background:rgba(251,191,36,0.12);color:#FBBF24">360 findings</span>
+                <span class="tag" style="background:rgba(53,208,127,0.12);color:#35D07F">310 files</span>
+                <span class="tag" style="background:rgba(56,217,255,0.12);color:#38D9FF">hono v4</span>
+            </div>
+        </a>
+        <a class="report-card" href="zod_hud.html">
+            <div class="card-icon" style="background:rgba(167,139,250,0.12)">⚡</div>
+            <div class="card-title">colinhacks/zod (Schema Engine)</div>
+            <div class="card-desc">464 detections across 321 files (0.22s) — Deep Conditional Types inference, Mapped Types, Type Guards, Structural Validation.</div>
+            <div class="card-meta">
+                <span class="tag" style="background:rgba(167,139,250,0.12);color:#A78BFA">464 findings</span>
+                <span class="tag" style="background:rgba(53,208,127,0.12);color:#35D07F">321 files</span>
+                <span class="tag" style="background:rgba(56,217,255,0.12);color:#38D9FF">zod v4</span>
+            </div>
+        </a>
         <a class="report-card" href="sample_report.html">
             <div class="card-icon" style="background:rgba(56,217,255,0.12)">🏦</div>
-            <div class="card-title">BankingDomain + ReactiveApiGateway</div>
-            <div class="card-desc">40 architectural signals detected across Discriminated Unions, Smart Constructors, Railway Result, DI, Observer/EventEmitter, Proxy, Strategy patterns.</div>
+            <div class="card-title">BankingDomain + GoFPatterns</div>
+            <div class="card-desc">89 architectural signals across all 23 Gang of Four patterns, Discriminated Unions, Smart Constructors, Railway Result, DI, and Proxies.</div>
             <div class="card-meta">
-                <span class="tag" style="background:rgba(56,217,255,0.12);color:#38D9FF">40 findings</span>
-                <span class="tag" style="background:rgba(53,208,127,0.12);color:#35D07F">2 files</span>
-                <span class="tag" style="background:rgba(167,139,250,0.12);color:#A78BFA">example</span>
+                <span class="tag" style="background:rgba(56,217,255,0.12);color:#38D9FF">89 findings</span>
+                <span class="tag" style="background:rgba(53,208,127,0.12);color:#35D07F">3 files</span>
+                <span class="tag" style="background:rgba(167,139,250,0.12);color:#A78BFA">GoF 23/23</span>
             </div>
         </a>
     </div>
 
-    <div class="section-title">🔷 30 Detection Rules</div>
+    <div class="section-title">🔷 40 Detection Rules</div>
     <div class="rules-grid">
         <div class="rule-item"><span class="rule-icon">🔷</span><div><div class="rule-name">discriminated_union</div><div class="rule-cat">Type-Level Programming</div></div></div>
         <div class="rule-item"><span class="rule-icon">🔷</span><div><div class="rule-name">conditional_types</div><div class="rule-cat">Type-Level Programming</div></div></div>

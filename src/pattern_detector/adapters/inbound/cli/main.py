@@ -66,7 +66,7 @@ def _print_detection_summary(report: DetectionReport, verbose: bool = False) -> 
             console.print(f"    └── +{int(ev.weight * 100)}% ({ev.rule_code}) {ev.description}")
 
 
-@app.callback(invoke_without_command=True)
+@app.command("scan")
 def scan(
     target: str = typer.Argument(..., help="Path to TypeScript/JS project directory or single file"),
     html: Optional[Path] = typer.Option(None, "-H", "--html", help="Output HTML Architecture HUD report path"),
@@ -84,6 +84,27 @@ def scan(
         html.parent.mkdir(parents=True, exist_ok=True)
         html.write_text(html_content, encoding="utf-8")
         console.print(f"\n[bold green]✓[/bold green] Architecture HUD saved → [cyan]{html}[/cyan]")
+
+
+@app.command("rules")
+def list_rules() -> None:
+    """List all 40 TypeScript & GoF architecture pattern rules."""
+    from pattern_detector.domain.pattern import PATTERN_CATALOG
+
+    t = Table(title="🔷 DPX-TypeScript Rules Catalog (40 Rules)", box=box.ROUNDED, header_style="bold cyan")
+    t.add_column("Category", style="magenta", width=24)
+    t.add_column("Rule Name", style="bold yellow", width=30)
+    t.add_column("Description", style="white")
+
+    for ptype, entry in PATTERN_CATALOG.items():
+        t.add_row(entry.category.value, entry.name, entry.description)
+    console.print(t)
+
+
+@app.command("version")
+def show_version() -> None:
+    """Show DPX-TypeScript version."""
+    console.print("[bold cyan]DPX-TypeScript[/bold cyan] version [bold green]0.1.0[/bold green] (40 rules, GoF 23/23)")
 
 
 def main() -> None:
